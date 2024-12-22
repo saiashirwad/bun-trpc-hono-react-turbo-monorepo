@@ -6,16 +6,17 @@
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "build": "tsc --build && bun build ./src/index.ts --outdir ./dist",
-    "start": "bun run ./dist/index.js",
+    "start": "NODE_ENV=production bun run ./dist/index.js",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist node_modules .turbo"
+    "clean": "rm -rf dist node_modules .turbo public"
   },
   "dependencies": {
-    "@trpc/server": "^10.0.0",
-    "hono": "^3.0.0",
     "@hono/node-server": "^1.0.0",
+    "@hono/trpc-server": "^0.3.4",
+    "@template/schemas": "workspace:*",
     "@template/types": "workspace:*",
-    "@template/schemas": "workspace:*"
+    "@trpc/server": "^10.0.0",
+    "hono": "^3.0.0"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

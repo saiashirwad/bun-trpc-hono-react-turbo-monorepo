@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 
 export default defineConfig({
 	plugins: [react()],
+	root: __dirname,
 	resolve: {
 		alias: {
 			types: resolve(__dirname, "../types/index.ts"),
@@ -17,5 +18,10 @@ export default defineConfig({
 				changeOrigin: true,
 			},
 		},
+	},
+	build: {
+		outDir: "./dist",
+		emptyOutDir: true,
+		assetsDir: "assets",
 	},
 });

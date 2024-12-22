@@ -9,7 +9,9 @@
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "start": "bun run build && bun run start:prod",
+    "start:prod": "export NODE_ENV=production && cd packages/server && bun run start"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

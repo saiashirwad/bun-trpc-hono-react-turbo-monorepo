@@ -1,32 +1,32 @@
-import { serve } from "@hono/node-server";
+import { trpcServer } from "@hono/trpc-server";
 import { Hono } from "hono";
-import { cors } from "hono/cors";
+import { serveStatic } from "hono/bun";
 import { createTRPCRouter } from "./trpc";
 
 const app = new Hono();
-const trpc = createTRPCRouter();
+const router = createTRPCRouter();
 
-// Configure CORS for development
-if (process.env.NODE_ENV !== "production") {
-	app.use(
-		"*",
-		cors({
-			origin: "http://localhost:5173", // Vite's default port
-			credentials: true,
-		}),
-	);
+// API routes first
+app.use(
+	"/trpc/*",
+	trpcServer({
+		router,
+	}),
+);
+
+if (process.env.NODE_ENV === "production") {
+	// Serve static assets (JS, CSS, images)
+	app.use("/assets/*", serveStatic({ root: "../client/dist" }));
+
+	// Serve index.html for all non-API routes (client-side routing)
+	app.get("*", async (c) => {
+		if (!c.req.path.startsWith("/trpc/")) {
+			return c.html(await Bun.file("../client/dist/index.html").text());
+		}
+	});
 }
 
-app.get("/", (c) => {
-	return c.text("Hello World");
-});
-
-// app.use("/trpc/*", trpc.fetchHandler());
-// app.use("/*", serveStatic({ root: "./public" }));
-
-serve({
-	fetch: app.fetch,
+export default {
 	port: Number(process.env.PORT) || 3000,
-});
-
-console.log(`🚀 Server running on port ${process.env.PORT || 3000}`);
+	fetch: app.fetch,
+};
