@@ -10,11 +10,11 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
-    "start": "bun run build && bun run start:prod",
-    "start:prod": "export NODE_ENV=production && cd packages/server && bun run start"
+    "start:prod": "NODE_ENV=production cd packages/server && bun run start"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.14",
     "turbo": "^1.12.0",
     "typescript": "^5.0.0"
   }
