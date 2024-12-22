@@ -10,7 +10,7 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
-    "start:prod": "NODE_ENV=production cd packages/server && bun run start"
+    "start:prod": "NODE_ENV=production turbo run start --filter=@template/server"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
