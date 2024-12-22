@@ -1,9 +1,11 @@
 {
-  "name": "server",
+  "name": "@template/server",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "bun --watch src/index.ts",
-    "build": "bun build ./src/index.ts --outdir ./dist",
+    "build": "tsc --build && bun build ./src/index.ts --outdir ./dist",
     "start": "bun run ./dist/index.js",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules .turbo"
@@ -12,8 +14,8 @@
     "@trpc/server": "^10.0.0",
     "hono": "^3.0.0",
     "@hono/node-server": "^1.0.0",
-    "types": "workspace:*",
-    "schemas": "workspace:*"
+    "@template/types": "workspace:*",
+    "@template/schemas": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

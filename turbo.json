@@ -9,8 +9,7 @@
         "^build"
       ],
       "outputs": [
-        "dist/**",
-        "public/**"
+        "dist/**"
       ]
     },
     "dev": {
@@ -19,7 +18,7 @@
     },
     "typecheck": {
       "dependsOn": [
-        "^typecheck"
+        "^build"
       ],
       "outputs": []
     },

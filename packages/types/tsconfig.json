@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": ".",
-    "composite": true
+    "composite": true,
+    "declaration": true,
+    "preserveSymlinks": true
   },
   "include": ["./**/*.ts"],
   "references": [

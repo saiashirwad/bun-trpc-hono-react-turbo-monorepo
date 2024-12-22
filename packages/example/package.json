@@ -1,14 +1,15 @@
 {
-  "name": "@template/schemas",
+  "name": "@template/example",
   "private": true,
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc --build",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules .turbo"
   },
   "dependencies": {
-    "zod": "^3.0.0"
+    "@template/schemas": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

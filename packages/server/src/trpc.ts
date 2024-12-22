@@ -1,5 +1,9 @@
 import { initTRPC } from "@trpc/server";
-import { loginSchema, registerSchema, createUserSchema } from "schemas";
+import {
+	loginSchema,
+	registerSchema,
+	createUserSchema,
+} from "@template/schemas";
 
 const t = initTRPC.create();
 

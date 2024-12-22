@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@template/client",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -14,8 +14,8 @@
     "@trpc/client": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
     "@tanstack/react-query": "^4.0.0",
-    "types": "workspace:*",
-    "schemas": "workspace:*"
+    "@template/types": "workspace:*",
+    "@template/schemas": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",

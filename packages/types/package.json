@@ -1,9 +1,10 @@
 {
-  "name": "types",
+  "name": "@template/types",
   "private": true,
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc --build",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules .turbo"
   },
