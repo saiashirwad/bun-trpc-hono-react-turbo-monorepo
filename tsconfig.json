@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "types": ["packages/types"]
+    }
+  },
+  "references": [
+    { "path": "./packages/types" },
+    { "path": "./packages/server" },
+    { "path": "./packages/client" }
+  ],
+  "exclude": ["**/dist", "**/node_modules"]
+}
