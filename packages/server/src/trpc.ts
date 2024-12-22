@@ -1,14 +1,18 @@
-import { initTRPC } from "@trpc/server";
 import {
+	createUserSchema,
 	loginSchema,
 	registerSchema,
-	createUserSchema,
 } from "@template/schemas";
+import { initTRPC } from "@trpc/server";
 
 const t = initTRPC.create();
 
 export const createTRPCRouter = () => {
 	return t.router({
+		hi: t.procedure.query(() => {
+			return { hi: "there" };
+		}),
+
 		login: t.procedure.input(loginSchema).mutation(async ({ input }) => {
 			// Implement login logic here
 			return { success: true };
