@@ -1,5 +1,5 @@
 {
-  "name": "trpc-react-hono-bun-monorepo",
+  "name": "template",
   "private": true,
   "workspaces": [
     "packages/*"

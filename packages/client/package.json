@@ -14,7 +14,8 @@
     "@trpc/client": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
     "@tanstack/react-query": "^4.0.0",
-    "types": "workspace:*"
+    "types": "workspace:*",
+    "schemas": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
