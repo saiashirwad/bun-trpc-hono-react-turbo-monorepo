@@ -9,13 +9,6 @@ export const trpcLinks = [
 	httpLink({
 		url: "/trpc",
 		transformer: superjson,
-		fetch(url, options) {
-			console.log({ url, options });
-			return fetch(url, {
-				...options,
-				credentials: "include",
-			});
-		},
 	}),
 ];
 

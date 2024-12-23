@@ -13,7 +13,9 @@ export { createContext } from "./context";
 
 export const appRouter = router({
 	hi: publicProcedure.query(() => {
-		return "Hello from tRPC!";
+		return {
+			hi: "there" as const,
+		};
 	}),
 
 	hello: publicProcedure

@@ -18,11 +18,10 @@
     "clean": "rm -rf dist node_modules .turbo public"
   },
   "dependencies": {
-    "@hono/node-server": "^1.0.0",
-    "@hono/trpc-server": "0.3.2",
+    "@hono/trpc-server": "0.3.3",
     "@template/schemas": "workspace:*",
     "@template/trpc": "workspace:*",
-    "@trpc/server": "^11.0.0-rc.666",
+    "@trpc/server": "11.0.0-next-beta.222",
     "hono": "^4.6.14",
     "superjson": "^2.2.2",
     "zod": "^3.23.8"
