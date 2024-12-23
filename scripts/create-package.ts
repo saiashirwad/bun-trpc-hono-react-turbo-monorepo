@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import { readdir } from "node:fs/promises";
+import path from "node:path";
 import {
 	cancel,
 	confirm,
@@ -10,9 +13,6 @@ import {
 	text,
 } from "@clack/prompts";
 import { $ } from "bun";
-import fs from "node:fs";
-import { readdir } from "node:fs/promises";
-import path from "node:path";
 
 type PackageConfig = {
 	name: string;
@@ -205,8 +205,7 @@ async function main() {
 
 		log.success(`Created package @template/${config.name}`);
 		log.info("Next steps:");
-		log.step("1. Add the package to root tsconfig.json references");
-		log.step("2. Run bun install");
+		log.step("1. Run bun install");
 
 		outro("Happy coding! 🎉");
 	} catch (error) {

@@ -1,17 +1,19 @@
 {
-  "name": "@template/example",
+  "name": "@template/auth",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc --build",
+    "just-build": "tsc --build --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules .turbo"
   },
-  "dependencies": {
-    "@template/schemas": "workspace:*"
-  },
-  "devDependencies": {
-    "typescript": "^5.0.0"
-  }
+  "dependencies": {}
 }
