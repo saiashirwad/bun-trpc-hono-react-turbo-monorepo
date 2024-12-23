@@ -10,9 +10,10 @@
     "just-build": "turbo run just-build",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
-    "clean": "turbo run clean && rm -rf node_modules",
     "start:prod": "turbo run start --filter=@template/server -- --env-file=.env.production",
-    "create-package": "bun run packages/scripts/src/create-package.ts"
+    "create-package": "bun run create-package.ts",
+    "clean-tsbuildinfo": "bun run clean.ts",
+    "clean": "bun run clean-tsbuildinfo && turbo run clean && rm -rf node_modules && bun install"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

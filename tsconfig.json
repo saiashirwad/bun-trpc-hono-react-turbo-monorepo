@@ -17,9 +17,8 @@
     "allowJs": true,
     "incremental": true
   },
-  "include": ["./packages/**/*.ts"],
+  "include": ["./packages/**/*.ts", "clean.ts", "create-package.ts"],
   "references": [
-    { "path": "./packages/scripts" },
     { "path": "./packages/schemas" },
     { "path": "./packages/trpc" },
     { "path": "./packages/client" },

@@ -1,5 +1,4 @@
 import { trpcServer } from "@hono/trpc-server";
-import { loginSchema } from "@template/schemas";
 import { appRouter } from "@template/trpc";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
