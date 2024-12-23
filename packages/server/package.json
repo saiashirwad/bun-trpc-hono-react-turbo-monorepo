@@ -18,7 +18,6 @@
     "clean": "rm -rf dist node_modules .turbo public"
   },
   "dependencies": {
-    "@hono/trpc-server": "0.3.3",
     "@template/schemas": "workspace:*",
     "@template/trpc": "workspace:*",
     "@trpc/server": "11.0.0-next-beta.222",
