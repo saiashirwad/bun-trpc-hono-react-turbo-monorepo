@@ -1,32 +1,32 @@
 {
-  "name": "@template/server",
-  "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
-  "scripts": {
-    "build": "tsc --build && bun build ./src/index.ts --outdir ./dist",
-    "just-build": "bun build ./src/index.ts --outdir ./dist",
-    "dev": "bun --watch src/index.ts",
-    "start": "NODE_ENV=production bun run ./dist/index.js",
-    "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist node_modules .turbo public"
-  },
-  "dependencies": {
-    "@template/schemas": "workspace:*",
-    "@template/trpc": "workspace:*",
-    "@trpc/server": "11.0.0-next-beta.222",
-    "hono": "^4.6.14",
-    "superjson": "^2.2.2",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0"
-  }
+	"name": "@template/server",
+	"private": true,
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc --build && bun build ./src/index.ts --outdir ./dist",
+		"just-build": "bun build ./src/index.ts --outdir ./dist",
+		"dev": "bun --watch src/index.ts",
+		"start": "NODE_ENV=production bun run ./dist/index.js",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf dist node_modules .turbo public"
+	},
+	"dependencies": {
+		"@template/schemas": "workspace:*",
+		"@template/trpc": "workspace:*",
+		"@trpc/server": "11.0.0-next-beta.222",
+		"hono": "^4.6.14",
+		"superjson": "^2.2.2",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.0",
+		"@types/node": "^20.0.0"
+	}
 }

@@ -1,19 +1,16 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "composite": true,
-    "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "baseUrl": ".",
-    "paths": {
-      "types": ["../types"]
-    }
-  },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "references": [
-    { "path": "../schemas" },
-    { "path": "../trpc" },
-  ]
-} 
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"composite": true,
+		"jsx": "react-jsx",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"baseUrl": ".",
+		"paths": {
+			"types": ["../types"]
+		}
+	},
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"references": [{ "path": "../schemas" }, { "path": "../trpc" }]
+}

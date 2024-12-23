@@ -1,14 +1,14 @@
-import { inferAsyncReturnType } from "@trpc/server";
-import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
+import { inferAsyncReturnType } from '@trpc/server'
+import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 
 export async function createContext({
-	req,
-	resHeaders,
+  req,
+  resHeaders,
 }: FetchCreateContextFnOptions) {
-	return {
-		req,
-		resHeaders,
-	};
+  return {
+    req,
+    resHeaders,
+  }
 }
 
-export type Context = inferAsyncReturnType<typeof createContext>;
+export type Context = inferAsyncReturnType<typeof createContext>
