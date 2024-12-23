@@ -1,19 +1,16 @@
 {
 	"name": "@template/trpc",
 	"private": true,
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
 	"exports": {
+		"./package.json": "./package.json",
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		}
 	},
 	"scripts": {
-		"build": "tsc --build",
-		"just-build": "bun build ./src/index.ts --outdir ./dist --target node",
-		"dev": "tsc --build --watch",
-		"typecheck": "tsc --noEmit",
+		"build": "tsc -p tsconfig.build.json",
+		"dev": "tsc -p tsconfig.json --watch",
 		"clean": "rm -rf dist node_modules .turbo"
 	},
 	"dependencies": {
