@@ -17,11 +17,13 @@
     "allowJs": true,
     "incremental": true
   },
+  "include": ["./packages/**/*.ts"],
   "references": [
-    { "path": "./packages/types" },
     { "path": "./packages/server" },
     { "path": "./packages/client" },
-    { "path": "./packages/schemas" }
+    { "path": "./packages/schemas" },
+    { "path": "./packages/scripts" },
+    { "path": "./packages/trpc" },
   ],
   "exclude": [
     "**/dist",

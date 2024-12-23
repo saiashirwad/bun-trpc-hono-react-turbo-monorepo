@@ -1,29 +1,32 @@
-import type { AppRouter } from "@template/server";
-import { httpBatchLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import { QueryClient } from "@tanstack/react-query";
+import type { AppRouter } from "@template/trpc";
+import { createTRPCClient, createTRPCReact, httpLink } from "@trpc/react-query";
+import superjson from "superjson";
 
-type TRPCReact = ReturnType<typeof createTRPCReact<AppRouter>>;
-export const trpc: TRPCReact = createTRPCReact<AppRouter>();
+export const trpcLinks = [
+	httpLink({
+		url: "/trpc",
+		transformer: superjson,
+	}),
+];
 
-export function getTRPCClient() {
-	const url =
-		process.env.NODE_ENV === "production"
-			? "/trpc"
-			: "http://localhost:3000/trpc";
+export const trpc = createTRPCReact<AppRouter>();
+export const trpcClient = createTRPCClient<AppRouter>({
+	links: trpcLinks,
+});
 
-	return trpc.createClient({
-		links: [
-			httpBatchLink({
-				url,
-				// Add custom headers here if needed
-				headers: () => ({}),
-				fetch: (url, options) => {
-					return fetch(url, {
-						...options,
-						credentials: "include",
-					});
-				},
-			}),
-		],
-	});
-}
+export const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			// gcTime: 1000 * 60 * 5, // 24 hours
+			// persister: experimental_createPersister({
+			// 	storage: {
+			// 		getItem: get,
+			// 		setItem: set,
+			// 		removeItem: del,
+			// 	},
+			// 	prefix: "trpc",
+			// }),
+		},
+	},
+});

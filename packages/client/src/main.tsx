@@ -1,25 +1,26 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { getTRPCClient, trpc } from "./utils/trpc";
-
-const queryClient = new QueryClient();
-const trpcClient = getTRPCClient();
+import { queryClient, trpc, trpcLinks } from "./utils/trpc";
 
 function App() {
+	const [trpcClient] = useState(() =>
+		trpc.createClient({
+			links: trpcLinks,
+		}),
+	);
+
 	return (
-		<div>
-			<h1>Hello TRPC + React</h1>
-		</div>
+		<trpc.Provider client={trpcClient} queryClient={queryClient}>
+			<QueryClientProvider client={queryClient}>
+				<div>hi</div>
+			</QueryClientProvider>
+		</trpc.Provider>
 	);
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<trpc.Provider client={trpcClient} queryClient={queryClient}>
-			<QueryClientProvider client={queryClient}>
-				<App />
-			</QueryClientProvider>
-		</trpc.Provider>
+		<App />
 	</React.StrictMode>,
 );

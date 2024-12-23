@@ -1,12 +1,12 @@
 {
   "name": "@template/server",
   "private": true,
-  "main": "dist/exports.js",
-  "types": "dist/exports.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/exports.d.ts",
-      "default": "./dist/exports.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
@@ -20,9 +20,10 @@
     "@hono/node-server": "^1.0.0",
     "@hono/trpc-server": "^0.3.4",
     "@template/schemas": "workspace:*",
-    "@template/types": "workspace:*",
-    "@trpc/server": "^10.0.0",
-    "hono": "^3.0.0"
+    "@template/trpc": "workspace:*",
+    "@trpc/server": "^11.0.0-rc.666",
+    "hono": "^3.0.0",
+    "superjson": "^2.2.2"
   },
   "devDependencies": {
     "typescript": "^5.0.0",
