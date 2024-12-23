@@ -12,7 +12,8 @@
 	"scripts": {
 		"build": "tsc -p tsconfig.build.json",
 		"dev": "tsc -p tsconfig.json --watch",
-		"clean": "rm -rf dist node_modules .turbo"
+		"clean": "rm -rf dist node_modules .turbo",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@template/schemas": "workspace:*",

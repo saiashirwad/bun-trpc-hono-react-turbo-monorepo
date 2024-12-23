@@ -12,6 +12,7 @@
 	"scripts": {
 		"build": "tsc -p tsconfig.build.json",
 		"dev": "tsc -p tsconfig.json --watch",
+		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist node_modules .turbo"
 	},
 	"dependencies": {
