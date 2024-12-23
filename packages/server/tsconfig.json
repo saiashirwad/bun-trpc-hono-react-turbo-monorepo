@@ -6,6 +6,5 @@
 		"composite": true,
 		"declaration": true
 	},
-	"include": ["./src/**/*.ts"],
-	"references": [{ "path": "../schemas" }, { "path": "../trpc" }]
+	"include": ["./src/**/*.ts"]
 }

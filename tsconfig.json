@@ -18,22 +18,5 @@
 		"incremental": true
 	},
 	"include": ["./scripts/**/*.ts"],
-	"references": [
-		{
-			"path": "./packages/schemas"
-		},
-		{
-			"path": "./packages/trpc"
-		},
-		{
-			"path": "./packages/client"
-		},
-		{
-			"path": "./packages/server"
-		},
-		{
-			"path": "./packages/auth"
-		}
-	],
 	"exclude": ["**/dist", "**/node_modules", "**/.turbo"]
 }

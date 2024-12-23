@@ -11,6 +11,5 @@
 			"types": ["../types"]
 		}
 	},
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"references": [{ "path": "../schemas" }, { "path": "../trpc" }]
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }
