@@ -17,7 +17,7 @@
     "start:prod": "turbo run start --filter=@template/server -- --env-file=.env.production",
     "create-package": "bun run scripts/create-package.ts",
     "clean-tsbuildinfo": "bun run scripts/clean.ts",
-    "clean": "bun run clean-tsbuildinfo && turbo run clean && rm -rf node_modules && bun install",
+    "clean": "turbo run clean && rm -rf node_modules && bun install",
     "knip": "knip"
   },
   "devDependencies": {
