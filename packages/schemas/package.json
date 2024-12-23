@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "tsc --build",
+    "just-build": "bun build ./index.ts --outdir ./dist",
     "dev": "tsc --build --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules .turbo"

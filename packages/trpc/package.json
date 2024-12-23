@@ -11,11 +11,18 @@
   },
   "scripts": {
     "build": "tsc --build",
+    "just-build": "bun build ./src/index.ts --outdir ./dist --target node",
+    "dev": "tsc --build --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist node_modules .turbo"
   },
   "dependencies": {
+    "@template/schemas": "workspace:*",
     "@trpc/server": "^11.0.0-rc.666",
-    "superjson": "^2.2.2"
+    "superjson": "^2.2.2",
+    "hono": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
   }
 }

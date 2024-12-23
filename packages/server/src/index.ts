@@ -1,4 +1,5 @@
 import { trpcServer } from "@hono/trpc-server";
+import { loginSchema } from "@template/schemas";
 import { appRouter } from "@template/trpc";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
@@ -8,7 +9,6 @@ console.log(`Starting server in ${NODE_ENV} mode`);
 
 const app = new Hono();
 
-// API routes first
 app.use(
 	"/trpc/*",
 	trpcServer({
@@ -18,7 +18,6 @@ app.use(
 
 app.use("/assets/*", serveStatic({ root: "../client/dist" }));
 
-// Serve index.html for all other routes
 app.get("*", async (c) => {
 	if (!c.req.path.startsWith("/trpc/")) {
 		try {

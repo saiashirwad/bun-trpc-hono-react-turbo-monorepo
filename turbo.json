@@ -13,6 +13,14 @@
         "dist/**"
       ]
     },
+    "just-build": {
+      "dependsOn": [
+        "^just-build"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
     "start": {
       "dependsOn": [
         "build"

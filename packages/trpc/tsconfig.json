@@ -3,10 +3,14 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "include": [
     "./src/**/*.ts"
   ],
-  "references": []
+  "references": [
+    { "path": "../schemas" }
+  ]
 }
