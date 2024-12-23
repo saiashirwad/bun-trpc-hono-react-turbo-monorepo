@@ -22,7 +22,7 @@
     { "path": "./packages/schemas" },
     { "path": "./packages/trpc" },
     { "path": "./packages/client" },
-    { "path": "./packages/server" },
+    { "path": "./packages/server" }
   ],
   "exclude": [
     "**/dist",

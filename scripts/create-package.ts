@@ -1,27 +1,38 @@
-import { $ } from "bun";
 import {
-	intro,
-	outro,
-	text,
-	confirm,
-	multiselect,
-	isCancel,
 	cancel,
-	spinner,
+	confirm,
+	intro,
+	isCancel,
 	log,
+	multiselect,
+	outro,
+	spinner,
+	text,
 } from "@clack/prompts";
-import { z } from "zod";
+import { $ } from "bun";
 import fs from "node:fs";
+import { readdir } from "node:fs/promises";
 import path from "node:path";
 
-const packageSchema = z.object({
-	name: z.string().min(1),
-	needsTypes: z.boolean(),
-	isClient: z.boolean(),
-	dependencies: z.array(z.string()),
-});
+type PackageConfig = {
+	name: string;
+	needsTypes: boolean;
+	isClient: boolean;
+	dependencies: string[];
+};
 
-type PackageConfig = z.infer<typeof packageSchema>;
+async function appendToTsConfig(name: string) {
+	try {
+		const tsConfig = await Bun.file("tsconfig.json").json();
+		// @ts-expect-error
+		const references: string[] = tsConfig.references.map((dep) => dep.path);
+		if (references.includes(name)) return;
+		tsConfig.references.push({ path: `./packages/${name}` });
+		await Bun.write("tsconfig.json", JSON.stringify(tsConfig, null, 2));
+	} catch (e) {
+		console.error("Failed to append to tsconfig.json");
+	}
+}
 
 async function getPackageConfig(): Promise<PackageConfig> {
 	const name = await text({
@@ -58,17 +69,13 @@ async function getPackageConfig(): Promise<PackageConfig> {
 		process.exit(0);
 	}
 
+	const packages = await readdir("packages");
 	const dependencies = await multiselect({
 		message: "Select dependencies",
-		options: [
-			{
-				value: "schemas",
-				label: "@template/schemas",
-				hint: "Shared Zod schemas",
-			},
-			{ value: "types", label: "@template/types", hint: "Shared types" },
-			{ value: "server", label: "@template/server", hint: "Server exports" },
-		],
+		options: packages.map((pkg) => ({
+			value: pkg,
+			label: `@template/${pkg}`,
+		})),
 		required: false,
 	});
 
@@ -102,10 +109,12 @@ function generatePackageJson(config: PackageConfig): string {
 			}
 		: config.needsTypes
 			? {
-					build: "tsc --build && bun build ./src/index.ts --outdir ./dist",
+					build: "tsc --build",
+					"just-build": "tsc --build --watch",
 				}
 			: {
 					build: "bun build ./src/index.ts --outdir ./dist",
+					"just-build": "bun build ./src/index.ts --outdir ./dist --target",
 				};
 
 	return JSON.stringify(
@@ -188,6 +197,9 @@ async function main() {
 			path.join(packageDir, "src", "index.ts"),
 			`export function hello() {\n  return "Hello from ${config.name}";\n}\n`,
 		);
+
+		await appendToTsConfig(config.name);
+		log.info("Appended to tsconfig.json");
 
 		s.stop("Package structure created");
 
