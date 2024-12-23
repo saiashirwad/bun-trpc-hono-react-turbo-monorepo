@@ -1,6 +1,7 @@
 {
 	"name": "@template/schemas",
 	"private": true,
+	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {

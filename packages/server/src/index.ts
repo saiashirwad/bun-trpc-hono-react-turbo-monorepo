@@ -27,10 +27,11 @@ app.get('*', async (c) => {
       return c.text('Error serving application', 500)
     }
   }
+  return c.text('Not found', 404)
 })
 
 export default {
   fetch: app.fetch,
-  port: Number(process.env.PORT) || 3000,
+  port: Number(process.env['PORT']) || 3000,
   reusePort: true,
 }
