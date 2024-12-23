@@ -1,20 +1,16 @@
 {
 	"name": "@template/server",
 	"private": true,
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
 	"exports": {
+		"./package.json": "./package.json",
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		}
 	},
 	"scripts": {
-		"build": "tsc --build && bun build ./src/index.ts --outdir ./dist",
-		"just-build": "bun build ./src/index.ts --outdir ./dist",
-		"dev": "bun --watch src/index.ts",
-		"start": "NODE_ENV=production bun run ./dist/index.js",
-		"typecheck": "tsc --noEmit",
+		"build": "tsc -p tsconfig.build.json",
+		"dev": "tsc -p tsconfig.json --watch",
 		"clean": "rm -rf dist node_modules .turbo public"
 	},
 	"dependencies": {
