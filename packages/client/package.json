@@ -1,6 +1,12 @@
 {
   "name": "@template/client",
   "private": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -9,19 +15,16 @@
     "clean": "rm -rf dist node_modules .turbo"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@tanstack/react-query": "^4.0.0",
+    "@template/schemas": "workspace:*",
+    "@template/types": "workspace:*",
     "@trpc/client": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
-    "@tanstack/react-query": "^4.0.0",
-    "@template/types": "workspace:*",
-    "@template/schemas": "workspace:*"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "typescript": "^5.0.0",
-    "vite": "^5.0.0"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.5"
   }
 }

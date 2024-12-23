@@ -13,14 +13,19 @@
     "declarationMap": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "paths": {
-      "types": ["packages/types"]
-    }
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "incremental": true
   },
   "references": [
     { "path": "./packages/types" },
     { "path": "./packages/server" },
-    { "path": "./packages/client" }
+    { "path": "./packages/client" },
+    { "path": "./packages/schemas" }
   ],
-  "exclude": ["**/dist", "**/node_modules"]
+  "exclude": [
+    "**/dist",
+    "**/node_modules",
+    "**/.turbo"
+  ]
 }
