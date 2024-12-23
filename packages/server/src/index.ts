@@ -1,7 +1,7 @@
-import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "@template/trpc";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
+import { trpcServer } from "@hono/trpc-server";
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 console.log(`Starting server in ${NODE_ENV} mode`);
@@ -11,7 +11,14 @@ const app = new Hono();
 app.use(
 	"/trpc/*",
 	trpcServer({
+		batching: { enabled: false },
 		router: appRouter,
+		createContext: (_, ctx) => {
+			return {
+				auth: ctx.get("user"),
+				ctx,
+			};
+		},
 	}),
 );
 

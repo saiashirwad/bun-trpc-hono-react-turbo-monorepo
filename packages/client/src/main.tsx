@@ -1,19 +1,39 @@
 import { QueryClientProvider } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import { queryClient, trpc, trpcLinks } from "./utils/trpc";
+import { queryClient, trpc, trpcClient } from "./utils/trpc";
+
+function Dummy() {
+	const hi = trpc.hi.useQuery();
+	const login = trpc.login.useMutation({
+		onSuccess: (data) => {
+			console.log({ data });
+		},
+	});
+
+	return (
+		<div>
+			<pre>{JSON.stringify(hi.data, null, 2)}</pre>
+			<pre>{JSON.stringify(hi, null, 2)}</pre>
+			<button
+				onClick={() =>
+					login.mutate({
+						email: "test@gmail.com",
+						password: "testtesttest",
+					})
+				}
+			>
+				Login
+			</button>
+		</div>
+	);
+}
 
 function App() {
-	const [trpcClient] = useState(() =>
-		trpc.createClient({
-			links: trpcLinks,
-		}),
-	);
-
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				<div>hi</div>
+				<Dummy />
 			</QueryClientProvider>
 		</trpc.Provider>
 	);

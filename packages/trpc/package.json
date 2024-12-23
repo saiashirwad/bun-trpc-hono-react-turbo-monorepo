@@ -20,7 +20,7 @@
     "@template/schemas": "workspace:*",
     "@trpc/server": "^11.0.0-rc.666",
     "superjson": "^2.2.2",
-    "hono": "^3.0.0"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

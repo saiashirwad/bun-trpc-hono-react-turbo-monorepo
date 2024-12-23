@@ -1,7 +1,6 @@
+import { log } from "@clack/prompts";
 import fs from "node:fs";
 import path from "node:path";
-import { log } from "@clack/prompts";
-import { $ } from "bun";
 
 async function findTsBuildInfoFiles(dir: string): Promise<string[]> {
 	const files: string[] = [];

@@ -17,7 +17,7 @@
     "clean": "rm -rf dist node_modules .turbo"
   },
   "dependencies": {
-    "zod": "^3.0.0"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "typescript": "^5.0.0"

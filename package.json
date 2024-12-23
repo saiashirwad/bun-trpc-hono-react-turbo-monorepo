@@ -11,8 +11,8 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "start:prod": "turbo run start --filter=@template/server -- --env-file=.env.production",
-    "create-package": "bun run create-package.ts",
-    "clean-tsbuildinfo": "bun run clean.ts",
+    "create-package": "bun run scripts/create-package.ts",
+    "clean-tsbuildinfo": "bun run scripts/clean.ts",
     "clean": "bun run clean-tsbuildinfo && turbo run clean && rm -rf node_modules && bun install"
   },
   "devDependencies": {
@@ -20,5 +20,8 @@
     "@types/bun": "^1.1.14",
     "turbo": "^1.12.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.0"
   }
 }
