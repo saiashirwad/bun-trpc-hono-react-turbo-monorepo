@@ -16,6 +16,12 @@
 		"clean": {
 			"cache": false
 		},
+		"typecheck": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": []
+		},
 		"start": {
 			"dependsOn": [
 				"build"
