@@ -1,5 +1,5 @@
 {
-	"name": "@template/schemas",
+	"name": "@xyz/schemas",
 	"private": true,
 	"type": "module",
 	"exports": {

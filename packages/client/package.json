@@ -1,5 +1,5 @@
 {
-	"name": "@template/client",
+	"name": "@xyz/client",
 	"private": true,
 	"type": "module",
 	"exports": {
@@ -18,15 +18,15 @@
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.62.8",
-		"@template/schemas": "workspace:*",
-		"@template/server": "workspace:*",
+		"@xyz/schemas": "workspace:*",
+		"@xyz/server": "workspace:*",
 		"@trpc/client": "11.0.0-next-beta.222",
 		"@trpc/react-query": "11.0.0-next-beta.222",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"superjson": "^2.2.2",
 		"zod": "^3.23.8",
-		"@template/thing": "workspace:*"
+		"@xyz/thing": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.0",

@@ -1,4 +1,4 @@
-import { appRouter } from '@template/trpc'
+import { appRouter } from '@xyz/trpc'
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/bun'
 import { trpcServer } from './trpc-hono'

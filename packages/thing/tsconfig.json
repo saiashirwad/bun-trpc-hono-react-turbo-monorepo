@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@template/tsconfig/base.json"
+    "@xyz/tsconfig/base.json"
   ],
   "compilerOptions": {
     "lib": [

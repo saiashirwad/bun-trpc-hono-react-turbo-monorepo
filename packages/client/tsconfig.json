@@ -1,5 +1,5 @@
 {
-  "extends": ["@template/tsconfig/react.json"],
+  "extends": ["@xyz/tsconfig/react.json"],
   "compilerOptions": {
     "outDir": "./dist",
     "noEmit": false,

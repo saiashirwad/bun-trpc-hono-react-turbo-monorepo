@@ -22,7 +22,7 @@ Each package follows this structure:
 
 ```json
 {
-  "name": "@template/[package-name]",
+  "name": "@xyz/[package-name]",
   "private": true,
   "type": "module",
   "exports": {

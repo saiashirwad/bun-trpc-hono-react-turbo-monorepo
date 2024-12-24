@@ -1,5 +1,5 @@
 {
-  "name": "@template/thing",
+  "name": "@xyz/thing",
   "private": true,
   "type": "module",
   "exports": {

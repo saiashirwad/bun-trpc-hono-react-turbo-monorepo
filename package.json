@@ -1,5 +1,5 @@
 {
-  "name": "template",
+  "name": "xyz",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -15,7 +15,7 @@
     "format": "biome format --write",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
-    "start:prod": "turbo run start --filter=@template/server -- --env-file=.env.production",
+    "start:prod": "turbo run start --filter=@xyz/server -- --env-file=.env.production",
     "create-package": "bun run scripts/create-package.ts",
     "clean": "turbo run clean && rm -rf node_modules && bun install",
     "knip": "knip"

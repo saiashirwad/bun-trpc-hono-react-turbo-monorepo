@@ -1,4 +1,4 @@
-import { loginSchema } from '@template/schemas'
+import { loginSchema } from '@xyz/schemas'
 import { initTRPC } from '@trpc/server'
 import { z } from 'zod'
 import { Context } from './context'
@@ -26,7 +26,7 @@ export const appRouter = router({
 
   what: publicProcedure.query(() => {
     return {
-      hi: 'there' as const,
+      hi: 'what something' as const,
     }
   }),
 
