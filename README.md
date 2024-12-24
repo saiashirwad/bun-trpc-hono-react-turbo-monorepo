@@ -2,8 +2,6 @@
 
 A monorepo template for a production-ready tRPC, React, Hono, and Bun setup that uses built packages.
 
-
-
 ## Project Structure
 
 ```
