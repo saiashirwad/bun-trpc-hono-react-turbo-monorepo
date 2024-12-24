@@ -1,6 +1,3 @@
-import fs from 'node:fs'
-import { readdir } from 'node:fs/promises'
-import path from 'node:path'
 import {
   cancel,
   confirm,
@@ -13,28 +10,17 @@ import {
   text,
 } from '@clack/prompts'
 import { $ } from 'bun'
+import fs from 'node:fs'
+import { readdir } from 'node:fs/promises'
+import path from 'node:path'
 
 type PackageConfig = {
   name: string
-  needsTypes: boolean
   isClient: boolean
   dependencies: string[]
 }
 
-async function appendToTsConfig(name: string) {
-  try {
-    const tsConfig = await Bun.file('tsconfig.json').json()
-    // @ts-expect-error
-    const references: string[] = tsConfig.references.map((dep) => dep.path)
-    if (references.includes(name)) return
-    tsConfig.references.push({ path: `./packages/${name}` })
-    await Bun.write('tsconfig.json', JSON.stringify(tsConfig, null, 2))
-  } catch (e) {
-    console.error('Failed to append to tsconfig.json')
-  }
-}
-
-async function getPackageConfig(): Promise<PackageConfig> {
+async function getPackageConfig(projectName: string): Promise<PackageConfig> {
   const name = await text({
     message: 'What is the name of your package?',
     placeholder: 'my-package',
@@ -47,15 +33,6 @@ async function getPackageConfig(): Promise<PackageConfig> {
   })
 
   if (isCancel(name)) {
-    cancel('Operation cancelled')
-    process.exit(0)
-  }
-
-  const needsTypes = await confirm({
-    message: 'Does this package need to generate type declarations?',
-  })
-
-  if (isCancel(needsTypes)) {
     cancel('Operation cancelled')
     process.exit(0)
   }
@@ -74,7 +51,7 @@ async function getPackageConfig(): Promise<PackageConfig> {
     message: 'Select dependencies',
     options: packages.map((pkg) => ({
       value: pkg,
-      label: `@template/${pkg}`,
+      label: `@${projectName}/${pkg}`,
     })),
     required: false,
   })
@@ -86,16 +63,18 @@ async function getPackageConfig(): Promise<PackageConfig> {
 
   return {
     name: name as string,
-    needsTypes,
     isClient,
     dependencies: dependencies as string[],
   }
 }
 
-function generatePackageJson(config: PackageConfig): string {
+function generatePackageJson(
+  config: PackageConfig,
+  projectName: string,
+): string {
   const deps = config.dependencies.reduce(
     (acc, dep) => {
-      acc[`@template/${dep}`] = 'workspace:*'
+      acc[`@${projectName}/${dep}`] = 'workspace:*'
       return acc
     },
     {} as Record<string, string>,
@@ -107,23 +86,23 @@ function generatePackageJson(config: PackageConfig): string {
         build: 'tsc && vite build',
         preview: 'vite preview',
       }
-    : config.needsTypes
-      ? {
-          build: 'tsc --build',
-          'just-build': 'tsc --build --watch',
-        }
-      : {
-          build: 'bun build ./src/index.ts --outdir ./dist',
-          'just-build': 'bun build ./src/index.ts --outdir ./dist --target',
-        }
+    : {
+        build: 'tsc -p tsconfig.build.json',
+        dev: 'tsup --watch',
+      }
+
+  const devDeps = {
+    ...(config.isClient ? {} : { tsup: '^8.3.5' }),
+    typescript: '^5.7.2',
+  }
 
   return JSON.stringify(
     {
-      name: `@template/${config.name}`,
+      name: `@${projectName}/${config.name}`,
       private: true,
-      main: 'dist/index.js',
-      types: 'dist/index.d.ts',
+      type: 'module',
       exports: {
+        './package.json': './package.json',
         '.': {
           types: './dist/index.d.ts',
           default: './dist/index.js',
@@ -135,42 +114,72 @@ function generatePackageJson(config: PackageConfig): string {
         clean: 'rm -rf dist node_modules .turbo',
       },
       dependencies: deps,
+      devDependencies: devDeps,
     },
     null,
     2,
   )
 }
 
-function generateTsConfig(config: PackageConfig): string {
+function generateTsConfig(config: PackageConfig, projectName: string): string {
   return JSON.stringify(
     {
-      extends: '../../tsconfig.json',
+      extends: [`@${projectName}/tsconfig/base.json`],
       compilerOptions: {
+        lib: ['dom', 'dom.iterable', 'esnext'],
         outDir: './dist',
-        rootDir: './src',
-        composite: true,
-        ...(config.isClient && {
-          jsx: 'react-jsx',
-          lib: ['DOM', 'DOM.Iterable', 'ESNext'],
-        }),
+        noEmit: false,
+        emitDeclarationOnly: true,
+        tsBuildInfoFile: 'dist/tsconfig.tsbuildinfo',
       },
-      include: [
-        './src/**/*.ts',
-        ...(config.isClient ? ['./src/**/*.tsx'] : []),
-      ],
-      references: config.dependencies.map((dep) => ({
-        path: `../${dep}`,
-      })),
+      include: ['./src/**/*.ts'],
+      exclude: ['node_modules'],
     },
     null,
     2,
   )
+}
+
+function generateTsConfigBuild(
+  config: PackageConfig,
+  projectName: string,
+): string {
+  return JSON.stringify(
+    {
+      extends: [`@${projectName}/tsconfig/base.json`],
+      compilerOptions: {
+        lib: ['dom', 'dom.iterable', 'esnext'],
+        rootDir: 'src',
+        outDir: './dist',
+        noEmit: false,
+        tsBuildInfoFile: 'dist/tsconfig.build.tsbuildinfo',
+      },
+      include: ['src/**/*'],
+    },
+    null,
+    2,
+  )
+}
+
+function generateTsupConfig(): string {
+  return `import { defineConfig } from 'tsup'
+
+export default defineConfig({
+  entry: ['src/index.ts'],
+  format: ['esm'],
+  dts: true,
+  outDir: 'dist',
+  tsconfig: 'tsconfig.json',
+})`
 }
 
 async function main() {
   intro(`Create New Package`)
 
-  const config = await getPackageConfig()
+  const projectName = await Bun.file('package.json')
+    .json()
+    .then((json) => json.name)
+  const config = await getPackageConfig(projectName)
   const packageDir = path.join('packages', config.name)
 
   const s = spinner()
@@ -183,14 +192,30 @@ async function main() {
     // Create package.json
     await Bun.write(
       path.join(packageDir, 'package.json'),
-      generatePackageJson(config),
+      generatePackageJson(config, projectName),
     )
 
     // Create tsconfig.json
     await Bun.write(
       path.join(packageDir, 'tsconfig.json'),
-      generateTsConfig(config),
+      generateTsConfig(config, projectName),
     )
+
+    // Create tsconfig.build.json for non-client packages
+    if (!config.isClient) {
+      await Bun.write(
+        path.join(packageDir, 'tsconfig.build.json'),
+        generateTsConfigBuild(config, projectName),
+      )
+    }
+
+    // Create tsup.config.ts for non-client packages
+    if (!config.isClient) {
+      await Bun.write(
+        path.join(packageDir, 'tsup.config.ts'),
+        generateTsupConfig(),
+      )
+    }
 
     // Create index file
     await Bun.write(
@@ -198,12 +223,11 @@ async function main() {
       `export function hello() {\n  return "Hello from ${config.name}";\n}\n`,
     )
 
-    await appendToTsConfig(config.name)
     log.info('Appended to tsconfig.json')
 
     s.stop('Package structure created')
 
-    log.success(`Created package @template/${config.name}`)
+    log.success(`Created package @${projectName}/${config.name}`)
     log.info('Next steps:')
     log.step('1. Run bun install')
 

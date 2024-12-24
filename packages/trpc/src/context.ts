@@ -1,4 +1,3 @@
-import { inferAsyncReturnType } from '@trpc/server'
 import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 
 export async function createContext({
@@ -11,4 +10,4 @@ export async function createContext({
   }
 }
 
-export type Context = inferAsyncReturnType<typeof createContext>
+export type Context = Awaited<ReturnType<typeof createContext>>

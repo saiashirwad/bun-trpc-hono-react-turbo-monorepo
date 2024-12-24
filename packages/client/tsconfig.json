@@ -1,16 +1,10 @@
 {
-	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"outDir": "./dist",
-		"rootDir": "./src",
-		"composite": true,
-		"jsx": "react-jsx",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"baseUrl": ".",
-		"paths": {
-			"types": ["../types"]
-		}
-	},
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
-	"references": [{ "path": "../schemas" }, { "path": "../trpc" }]
+  "extends": ["@template/tsconfig/react.json"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
+  },
+  "include": ["vite.config.ts", "src/**/*"]
 }

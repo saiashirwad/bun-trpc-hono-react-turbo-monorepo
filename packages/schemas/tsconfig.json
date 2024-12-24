@@ -1,9 +1,22 @@
 {
-	"extends": "../../tsconfig.json",
+	"extends": [
+		"@template/tsconfig/base.json"
+	],
 	"compilerOptions": {
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
 		"outDir": "./dist",
-		"rootDir": ".",
-		"composite": true
+		"noEmit": false,
+		"emitDeclarationOnly": true,
+		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
 	},
-	"include": ["./**/*.ts"]
+	"include": [
+		"./src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

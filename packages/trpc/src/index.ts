@@ -8,11 +8,23 @@ const t = initTRPC.context<Context>().create()
 export const router = t.router
 export const publicProcedure = t.procedure
 
-export type { Context }
 export { createContext } from './context'
+export type { Context }
 
 export const appRouter = router({
   hi: publicProcedure.query(() => {
+    return {
+      hi: 'there' as const,
+    }
+  }),
+
+  something: publicProcedure.query(() => {
+    return {
+      something: 'something' as const,
+    }
+  }),
+
+  what: publicProcedure.query(() => {
     return {
       hi: 'there' as const,
     }

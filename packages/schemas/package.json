@@ -1,18 +1,17 @@
 {
 	"name": "@template/schemas",
 	"private": true,
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"type": "module",
 	"exports": {
+		"./package.json": "./package.json",
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		}
 	},
 	"scripts": {
-		"build": "tsc --build",
-		"just-build": "bun build ./index.ts --outdir ./dist",
-		"dev": "tsc --build --watch",
+		"build": "tsc -p tsconfig.build.json",
+		"dev": "tsup --watch",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist node_modules .turbo"
 	},
@@ -20,6 +19,7 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"typescript": "^5.0.0"
+		"tsup": "^8.3.5",
+		"typescript": "^5.7.2"
 	}
 }

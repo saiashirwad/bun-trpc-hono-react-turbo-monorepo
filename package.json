@@ -1,12 +1,16 @@
 {
   "name": "template",
   "private": true,
+  "type": "module",
   "workspaces": [
-    "packages/*"
+    "apps/*",
+    "packages/*",
+    "tooling/*"
   ],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "start": "turbo run start",
     "just-build": "turbo run just-build",
     "format": "biome format --write",
     "typecheck": "turbo run typecheck",
@@ -14,7 +18,7 @@
     "start:prod": "turbo run start --filter=@template/server -- --env-file=.env.production",
     "create-package": "bun run scripts/create-package.ts",
     "clean-tsbuildinfo": "bun run scripts/clean.ts",
-    "clean": "bun run clean-tsbuildinfo && turbo run clean && rm -rf node_modules && bun install",
+    "clean": "turbo run clean && rm -rf node_modules && bun install",
     "knip": "knip"
   },
   "devDependencies": {
@@ -22,13 +26,15 @@
     "@types/bun": "^1.1.14",
     "@types/node": "^22.10.2",
     "knip": "^5.41.1",
-    "turbo": "^1.12.0",
+    "turbo": "^2.3.3",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "@clack/prompts": "^0.9.0",
     "@effect/platform": "^0.72.0",
     "@effect/platform-bun": "^0.52.0",
-    "effect": "^3.12.0"
-  }
+    "effect": "^3.12.0",
+    "tsup": "^8.3.5"
+  },
+  "packageManager": "bun@1.1.24"
 }

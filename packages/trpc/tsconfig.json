@@ -1,12 +1,22 @@
 {
-	"extends": "../../tsconfig.json",
+	"extends": [
+		"@template/tsconfig/base.json"
+	],
 	"compilerOptions": {
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
 		"outDir": "./dist",
-		"rootDir": "./src",
-		"composite": true,
-		"declaration": true,
-		"declarationMap": true
+		"noEmit": false,
+		"emitDeclarationOnly": true,
+		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
 	},
-	"include": ["./src/**/*.ts"],
-	"references": [{ "path": "../schemas" }]
+	"include": [
+		"./src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

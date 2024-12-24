@@ -5,6 +5,8 @@ import { queryClient, trpc, trpcClient } from './utils/trpc'
 
 function Dummy() {
   const hi = trpc.hi.useQuery()
+  const what = trpc.what.useQuery()
+  const something = trpc.something.useQuery()
   const login = trpc.login.useMutation({
     onSuccess: (data) => {
       console.log({ data })
@@ -13,6 +15,7 @@ function Dummy() {
 
   return (
     <div>
+      <pre>{JSON.stringify(what.data, null, 2)}</pre>
       <pre>{JSON.stringify(hi.data, null, 2)}</pre>
       <pre>{JSON.stringify(hi, null, 2)}</pre>
       <button
