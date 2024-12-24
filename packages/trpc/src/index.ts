@@ -18,6 +18,18 @@ export const appRouter = router({
     }
   }),
 
+  something: publicProcedure.query(() => {
+    return {
+      something: 'something' as const,
+    }
+  }),
+
+  what: publicProcedure.query(() => {
+    return {
+      hi: 'there' as const,
+    }
+  }),
+
   hello: publicProcedure
     .input(
       z.object({

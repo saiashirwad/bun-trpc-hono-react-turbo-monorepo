@@ -16,7 +16,6 @@ import { $ } from 'bun'
 
 type PackageConfig = {
   name: string
-  needsTypes: boolean
   isClient: boolean
   dependencies: string[]
 }
@@ -51,15 +50,6 @@ async function getPackageConfig(): Promise<PackageConfig> {
     process.exit(0)
   }
 
-  const needsTypes = await confirm({
-    message: 'Does this package need to generate type declarations?',
-  })
-
-  if (isCancel(needsTypes)) {
-    cancel('Operation cancelled')
-    process.exit(0)
-  }
-
   const isClient = await confirm({
     message: 'Is this a client-side package (using Vite)?',
   })
@@ -86,7 +76,6 @@ async function getPackageConfig(): Promise<PackageConfig> {
 
   return {
     name: name as string,
-    needsTypes,
     isClient,
     dependencies: dependencies as string[],
   }
@@ -107,23 +96,23 @@ function generatePackageJson(config: PackageConfig): string {
         build: 'tsc && vite build',
         preview: 'vite preview',
       }
-    : config.needsTypes
-      ? {
-          build: 'tsc --build',
-          'just-build': 'tsc --build --watch',
-        }
-      : {
-          build: 'bun build ./src/index.ts --outdir ./dist',
-          'just-build': 'bun build ./src/index.ts --outdir ./dist --target',
-        }
+    : {
+        build: 'tsup',
+        dev: 'tsup --watch',
+      }
+
+  const devDeps = {
+    ...(config.isClient ? {} : { tsup: '^8.3.5' }),
+    typescript: '^5.7.2',
+  }
 
   return JSON.stringify(
     {
       name: `@template/${config.name}`,
       private: true,
-      main: 'dist/index.js',
-      types: 'dist/index.d.ts',
+      type: 'module',
       exports: {
+        './package.json': './package.json',
         '.': {
           types: './dist/index.d.ts',
           default: './dist/index.js',
@@ -135,6 +124,7 @@ function generatePackageJson(config: PackageConfig): string {
         clean: 'rm -rf dist node_modules .turbo',
       },
       dependencies: deps,
+      devDependencies: devDeps,
     },
     null,
     2,
@@ -167,6 +157,18 @@ function generateTsConfig(config: PackageConfig): string {
   )
 }
 
+function generateTsupConfig(): string {
+  return `import { defineConfig } from 'tsup'
+
+export default defineConfig({
+  entry: ['src/index.ts'],
+  format: ['esm'],
+  dts: true,
+  outDir: 'dist',
+  tsconfig: 'tsconfig.json',
+})`
+}
+
 async function main() {
   intro(`Create New Package`)
 
@@ -191,6 +193,14 @@ async function main() {
       path.join(packageDir, 'tsconfig.json'),
       generateTsConfig(config),
     )
+
+    // Create tsup.config.ts for non-client packages
+    if (!config.isClient) {
+      await Bun.write(
+        path.join(packageDir, 'tsup.config.ts'),
+        generateTsupConfig(),
+      )
+    }
 
     // Create index file
     await Bun.write(

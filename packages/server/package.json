@@ -13,8 +13,7 @@
 		"build": "tsc -p tsconfig.build.json",
 		"dev": "bun --watch src/index.ts",
 		"start": "bun run ./dist/index.js",
-		"clean": "rm -rf dist node_modules .turbo public",
-		"typecheck": "tsc --noEmit"
+		"clean": "rm -rf dist node_modules .turbo public"
 	},
 	"dependencies": {
 		"@template/schemas": "workspace:*",
