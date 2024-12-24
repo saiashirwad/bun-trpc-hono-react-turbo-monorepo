@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "@template/tsconfig/base.json"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "rootDir": "src",
+    "outDir": "./dist",
+    "noEmit": false,
+    "tsBuildInfoFile": "dist/tsconfig.build.tsbuildinfo"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
