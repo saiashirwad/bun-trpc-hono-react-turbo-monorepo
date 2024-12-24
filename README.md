@@ -1,6 +1,6 @@
 # TRPC + React + Hono Monorepo Template
 
-A production-ready monorepo setup with tRPC, React, and Hono, using modern build tools like tsup and Bun.
+A monorepo template for a production-ready tRPC, React, Hono, and Bun setup that uses built packages.
 
 ## Project Structure
 
@@ -15,6 +15,13 @@ my-monorepo/
 └── tooling/
     └── tsconfig/      # Shared TypeScript configs
 ```
+
+## Getting Started
+
+* Find and replace `xyz` with your project name.
+* Run `bun install` to install dependencies.
+* Run `bun run build` just once to build all packages.
+* Run `bun run dev` to start the development server.
 
 ## Package Configuration
 
